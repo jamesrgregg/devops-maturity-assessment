@@ -39,6 +39,13 @@ jobs:
       - name: Generate SBOM
         run: echo "Generating SBOM..." # Placeholder for SBOM generation command
 
+      - name: Create SBOM with Trivy
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          scan-type: fs
+          format: cyclonedx
+          output: sbom.json
+
       - name: Create SLSA Level 3 Attestation
         run: echo "Creating SLSA Level 3 attestation..." # Placeholder for attestation command
 
