@@ -24,11 +24,12 @@ import React, { useState } from 'react';
       return (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="deploymentFrequency" className="block text-sm font-medium text-gray-700">
               Deployment Frequency
             </label>
             <input
               type="text"
+              id="deploymentFrequency"
               name="deploymentFrequency"
               value={metrics.deploymentFrequency}
               onChange={handleChange}
@@ -36,11 +37,12 @@ import React, { useState } from 'react';
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="leadTimeForChanges" className="block text-sm font-medium text-gray-700">
               Lead Time for Changes
             </label>
             <input
               type="text"
+              id="leadTimeForChanges"
               name="leadTimeForChanges"
               value={metrics.leadTimeForChanges}
               onChange={handleChange}
@@ -48,11 +50,12 @@ import React, { useState } from 'react';
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="timeToRestoreService" className="block text-sm font-medium text-gray-700">
               Time to Restore Service
             </label>
             <input
               type="text"
+              id="timeToRestoreService"
               name="timeToRestoreService"
               value={metrics.timeToRestoreService}
               onChange={handleChange}
@@ -60,11 +63,12 @@ import React, { useState } from 'react';
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="changeFailureRate" className="block text-sm font-medium text-gray-700">
               Change Failure Rate
             </label>
             <input
               type="text"
+              id="changeFailureRate"
               name="changeFailureRate"
               value={metrics.changeFailureRate}
               onChange={handleChange}

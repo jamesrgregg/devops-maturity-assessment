@@ -23,11 +23,12 @@ import React, { useState } from 'react';
       return (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="customerName" className="block text-sm font-medium text-gray-700">
               Customer Name
             </label>
             <input
               type="text"
+              id="customerName"
               name="customerName"
               value={metadata.customerName}
               onChange={handleChange}
@@ -35,11 +36,12 @@ import React, { useState } from 'react';
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="devOpsEmployees" className="block text-sm font-medium text-gray-700">
               Number of DevOps Employees
             </label>
             <input
               type="number"
+              id="devOpsEmployees"
               name="devOpsEmployees"
               value={metadata.devOpsEmployees}
               onChange={handleChange}
@@ -47,10 +49,11 @@ import React, { useState } from 'react';
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="additionalInfo" className="block text-sm font-medium text-gray-700">
               Additional Information
             </label>
             <textarea
+              id="additionalInfo"
               name="additionalInfo"
               value={metadata.additionalInfo}
               onChange={handleChange}
