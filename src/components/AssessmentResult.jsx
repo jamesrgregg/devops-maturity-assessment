@@ -1,4 +1,4 @@
-import act from 'react';
+import React from 'react';
 
     function AssessmentResult({ result }) {
       return (
