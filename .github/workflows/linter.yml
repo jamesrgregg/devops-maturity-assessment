@@ -1,10 +1,10 @@
 name: Lint using super-linter
 
-on: 
- push:
-  branches:
-  - main
- pull_request:
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   lint:
@@ -19,14 +19,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-        #   ref: main
+          #   ref: main
           fetch-depth: 0
 
       - name: Super-linter
         uses: super-linter/super-linter@v7.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   DISABLE_ERRORS: true
+          #   DISABLE_ERRORS: true
           IGNORE_GENERATED_FILES: true
           IGNORE_GITIGNORED_FILES: true
           VALIDATE_ALL_CODEBASE: false
