@@ -91,10 +91,10 @@ jobs:
           git fetch --tags
 
       - name: Generate Changelog
-        run: echo "# Release-${{ env.tag_name }}" > release/CHANGELOG.txt   
+        run: echo "# Release-"${{ env.tag_name }}"" > release/CHANGELOG.txt   
 
       - name: Create GitHub Release
         run: | 
-          gh release create ${{ env.tag_name }} release/Release.txt release/sbom.json --title "${{ env.tag_name }}" --notes-file release/CHANGELOG.txt
+          gh release create "${{ env.tag_name }}" release/Release.txt release/sbom.json --title "${{ env.tag_name }}" --notes-file release/CHANGELOG.txt
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
