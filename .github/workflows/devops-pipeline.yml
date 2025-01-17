@@ -5,11 +5,18 @@ on:
     branches:
       - main
   pull_request:
+  
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+    
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
