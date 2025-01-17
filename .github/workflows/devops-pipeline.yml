@@ -74,15 +74,17 @@ jobs:
       - name: Create Release Tag
         id: create_tag
         run: |
-          tag_name="v1.0.${{ github.run_number }}" # shellcheck disable=SC2086
+          # shellcheck disable=SC2086
+          tag_name="v1.0.${{ github.run_number }}" 
           echo "tag_name=$tag_name" >> $GITHUB_ENV
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Create Release and Push    
         run: |
-          git tag "$tag_name" # shellcheck disable=SC2086
-          git push origin "$tag_name" # shellcheck disable=SC2086
+          # shellcheck disable=SC2086
+          git tag "$tag_name" 
+          git push origin "$tag_name" 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -91,10 +93,10 @@ jobs:
           git fetch --tags
 
       - name: Generate Changelog
-        run: echo "# Release-${{ env.tag_name }}" > release/CHANGELOG.txt   # shellcheck disable=SC2086 
+        run: echo "# Release-${{ env.tag_name }}" > release/CHANGELOG.txt  
 
       - name: Create GitHub Release
         run: | 
-          gh release create "${{ env.tag_name }}" release/Release.txt release/sbom.json --title "${{ env.tag_name }}" --notes-file release/CHANGELOG.txt # shellcheck disable=SC2086
+          gh release create "${{ env.tag_name }}" release/Release.txt release/sbom.json --title "${{ env.tag_name }}" --notes-file release/CHANGELOG.txt 
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
