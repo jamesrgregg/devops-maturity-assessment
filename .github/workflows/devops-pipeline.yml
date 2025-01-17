@@ -96,6 +96,6 @@ jobs:
 
       - name: Create GitHub Release
         run: | 
-          gh release create ${{ env.tag_name }} release/Release.txt release/sbom.json --title "${{ steps.create_tag.outputs.tag_name }}" --notes-file release/CHANGELOG.txt
+          gh release create ${{ env.tag_name }} release/Release.txt release/sbom.json --title "${{ env.tag_name }}" --notes-file release/CHANGELOG.txt
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
