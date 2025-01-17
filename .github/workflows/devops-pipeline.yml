@@ -86,7 +86,7 @@ jobs:
           git fetch --tags
 
       - name: Generate Changelog
-        run: echo "# Demo Release" > release/CHANGELOG.txt   
+        run: echo "# Release-${{ steps.create_tag.outputs.tag_name }}" > release/CHANGELOG.txt   
 
       - name: Create GitHub Release
         run: | 
