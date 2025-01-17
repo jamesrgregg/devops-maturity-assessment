@@ -82,8 +82,8 @@ jobs:
       
       - name: Create Release and Push    
         run: |
-          git tag ${{ env.tag_name }}
-          git push origin ${{ env.tag_name }}
+          git tag "$tag_name"
+          git push origin "$tag_name"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
