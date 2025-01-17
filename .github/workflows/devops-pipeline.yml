@@ -76,9 +76,8 @@ jobs:
         run: |
           tag_name="v1.0.${{ github.run_number }}"
           # echo "::set-output name=tag_name::$tag_name"
-          echo RELEASE_TAG_NAME=$tag_name >> $GITHUB_ENV
+          echo release_name=$tag_name >> $GITHUB_ENV
           echo "Tagging release with $tag_name"
-          echo $tag_name > release/Release.txt
           git tag $tag_name
           git push origin $tag_name
         env:
