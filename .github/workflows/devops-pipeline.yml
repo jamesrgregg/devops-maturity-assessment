@@ -74,9 +74,10 @@ jobs:
       - name: Create Release Tag
         id: create_tag
         run: |
-          # shellcheck disable=SC2086
-          tag_name="v1.0.${{ github.run_number }}" 
-          echo "tag_name=$tag_name" >> $GITHUB_ENV
+          # shellcheck disable=SC2086 
+          echo "Creating double quoted tag to avoid shellcheck issues..."
+          export tag_name="v1.0.${{ github.run_number }}" 
+          echo "tag_name=$tag_name" >> "$GITHUB_ENV"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
