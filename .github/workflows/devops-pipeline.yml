@@ -75,10 +75,7 @@ jobs:
         id: create_tag
         run: |
           tag_name="v1.0.${{ github.run_number }}"
-          # echo "::set-output name=tag_name::$tag_name"
-          echo release_name=$tag_name >> $GITHUB_ENV
-          echo $GITHUB_ENV
-          echo "Tagging release with $tag_name"
+          echo "::set-output name=tag_name::$tag_name"
           git tag $tag_name
           git push origin $tag_name
         env:
@@ -89,7 +86,7 @@ jobs:
           git fetch --tags
 
       - name: Generate Changelog
-        run: echo "# Release-${{ steps.create_tag.outputs.tag_name }}" > release/CHANGELOG.txt   
+        run: echo "# Demo Release" > release/CHANGELOG.txt   
 
       - name: Create GitHub Release
         run: | 
