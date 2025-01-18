@@ -76,6 +76,8 @@ jobs:
           # chainloop project create --name devops-pipeline
           # chainloop project select --name devops-pipeline
           # echo "Chainloop auth completed successfully"
+        env:
+          CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
      
       - name: Chainloop Scan
         run: |
