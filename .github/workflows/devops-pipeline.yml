@@ -58,32 +58,33 @@ jobs:
         run: |
           mkdir -p metadata
           curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v2.5.0
           
       - name: Install Chainloop CLI
         run: |
           echo "Installing  Chainloop CLI ... "
-          curl -sfL https://docs.chainloop.dev/install.sh | bash -s
+          curl -sfL https://docs.chainloop.dev/install.sh | bash -s -- --force-verification
           export PATH=$PATH:$HOME/.chainloop/bin
           chainloop version
           echo "Chainloop CLI installed successfully"
       
-      - name: Authenticate with Chainloop
+      - name: Initialize Attestation
+        run: chainloop attestation init --contract-revision 2
+
+      - name: Authenticate with Chainloop- API Token
         run: |
-          echo "Chainloop auth pending approval and config..."
-          chainloop auth login
-          # export CHAINLOOP_TOKEN=$(chainloop org api-token create --name arena-si-devops-api-token -o token)
-          # chainloop organization create --name arena-si-devops-dma-$((RANDOM % 90000 + 10000))
-          # chainloop project create --name devops-pipeline
-          # chainloop project select --name devops-pipeline
-          # echo "Chainloop auth completed successfully"
+          chainloop organization create --name arena-si-devops-dma-$((RANDOM % 90000 + 10000))
+          echo "Chainloop auth completed successfully"
         env:
           CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
      
-      - name: Chainloop Scan
+      - name: Chainloop Workflow
         run: |
-          echo "Chainloop scanning..."
-          # chainloop scan --sbom sbom.json --format cyclonedx
-          # echo "Chainloop scan completed successfully"
+          echo "Chainloop set up workflow..."
+          chainloop att init --workflow arenasidevopswf --project devops-maturity-assessment
+          chainloop wf ls     
           
       - name: Push Artifacts
         run: echo "Pushing artifacts..." # Placeholder for artifact push command
