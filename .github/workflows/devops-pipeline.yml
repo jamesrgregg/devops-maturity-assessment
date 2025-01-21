@@ -69,16 +69,14 @@ jobs:
           export PATH=$PATH:$HOME/.chainloop/bin
           chainloop version
           echo "Chainloop CLI installed successfully"
-      
-      - name: Initialize Attestation
-        run: chainloop attestation init --contract-revision 2
 
-      - name: Authenticate with Chainloop- API Token
+      - name: Authenticate with Chainloop - API Token
         run: |
-          chainloop organization create --name arena-si-devops-dma-$((RANDOM % 90000 + 10000))
+          chainloop organization api-token create --org arena-si-devops --name arena-si-devops-dma-$((RANDOM % 90000 + 10000)) --description arena-si-devops-api-token --control-plane  "api.cp.chainloop.dev:443"
+          # chainloop organization create --name arena-si-devops-dma-$((RANDOM % 90000 + 10000))
           echo "Chainloop auth completed successfully"
-        env:
-          CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
+        # env:
+        #   CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
      
       - name: Chainloop Workflow
         run: |
