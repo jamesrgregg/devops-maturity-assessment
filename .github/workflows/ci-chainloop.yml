@@ -55,16 +55,12 @@ jobs:
         run: |
           echo "Chainloop set up workflow..."
           chainloop config view 
-
-      - name: Create Chainloop Contract
-        run: |
-          echo "Creating Chainloop contract..."
-          chainloop workflow list --token ${{ secrets.CHAINLOOP_TOKEN }}
-
-
           
       - name: Push Artifacts
-        run: echo "Pushing artifacts..." # Placeholder for artifact push command
+        run: | 
+          echo "Pushing artifacts..."
+          chainloop attestation status --full
+          chainloop attestation push --artifact release/Release.txt --artifact release/sbom.json --token ${{ secrets.CHAINLOOP_TOKEN }}
 
       - name: Package Application
         run: echo "Packaging application..." # Placeholder for containerization command
