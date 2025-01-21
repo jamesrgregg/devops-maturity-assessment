@@ -1,4 +1,4 @@
-name: Chainloop Pipeline
+name: Chainloop Pipeline (Disabled)
 
 on:
   push:
