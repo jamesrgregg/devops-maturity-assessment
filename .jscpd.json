@@ -1,12 +1,10 @@
 {
-    "minLines": 5,
-    "maxLines": 500,
-    "maxSize": "30kb",
-    "minTokens": 50,
-    "ignore": [ 
-        ".github/workflows/ci-chainloop.yml"
-    ],
-    "mode": "mild",
-    "ignoreCase": false,
-    "gitignore": false
+  "minLines": 5,
+  "maxLines": 500,
+  "maxSize": "30kb",
+  "minTokens": 500
+  "ignore": [".github/workflows/ci-chainloop.yml"],
+  "mode": "mild",
+  "ignoreCase": false,
+  "gitignore": false
 }
