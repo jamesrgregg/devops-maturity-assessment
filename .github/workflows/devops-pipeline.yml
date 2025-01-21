@@ -83,13 +83,23 @@ jobs:
       - name: Package Application
         run: echo "Packaging application..." # Placeholder for containerization command
 
-      - name: Get Release SHA
+      - name: Get Release SHA and Move Files
         run: |
           echo ${{ github.sha }} > Release.txt
           ls -al
           mkdir release
           mv Release.txt release/
           mv sbom.json release/
+
+      - name: Push Artifacts
+        run: |
+          echo "Pushing artifacts..."
+          chainloop attestation status --full
+          chainloop att add --value release/Release.txt --token ${{ secrets.CHAINLOOP_TOKEN }}
+          chainloop att add --value release/sbom.json --token ${{ secrets.CHAINLOOP_TOKEN }}
+          chainloop attestation push --token ${{ secrets.CHAINLOOP_TOKEN }}
+        env: 
+            CHAINLOOP_TOKEN: ${{ secrets.CHAINLOOP_TOKEN }}          
 
       - name: Create Release Tag
         id: create_tag
