@@ -46,9 +46,24 @@ jobs:
           chainloop version
           echo "Chainloop CLI installed successfully"
 
-      - name: Authenticate with Chainloop - API Token
+      - name: Initialize Attestation
         run: |
-          chainloop auth login --skip-browser
+          echo "Initializing Chainloop attestation..."
+          chainloop attestation init --workflow  devops-maturity-assessment-gha --project  devops-maturity-assessment --token ${{ secrets.CHAINLOOP_TOKEN }}
+      
+      - name: View Chainloop Current Configuration
+        run: |
+          echo "Chainloop set up workflow..."
+          chainloop config view
+
+      - name: Create Chainloop Contract
+        run: |
+          echo "Creating Chainloop contract..."
+          chainloop workflow list
+
+    #   - name: Authenticate with Chainloop - API Token
+    #     run: |
+    #       chainloop auth login --skip-browser
         #   chainloop organization list
         #   chainloop organization api-token list
         # env:
