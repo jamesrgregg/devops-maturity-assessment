@@ -48,7 +48,7 @@ jobs:
 
       - name: Authenticate with Chainloop - API Token
         run: |
-          chainloop auth login --api-token ${{ secrets.CHAINLOOP_API_TOKEN }}
+          chainloop auth login --skip-browser
         #   chainloop organization list
         #   chainloop organization api-token list
         # env:
