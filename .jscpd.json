@@ -2,7 +2,7 @@
   "minLines": 5,
   "maxLines": 500,
   "maxSize": "30kb",
-  "minTokens": 500
+  "minTokens": 500,
   "ignore": [".github/workflows/ci-chainloop.yml"],
   "mode": "mild",
   "ignoreCase": false,
