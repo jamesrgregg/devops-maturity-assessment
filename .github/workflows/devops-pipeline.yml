@@ -72,10 +72,11 @@ jobs:
 
       - name: Authenticate with Chainloop - API Token
         run: |
-          chainloop auth login --skip-browser --token ${{ secrets.CHAINLOOP_TOKEN }} --control-plane "api.cp.chainloop.dev:443"
+          chainloop organization api-token list --token ${{ secrets.CHAINLOOP_TOKEN }}
+          # chainloop auth login --skip-browser --token ${{ secrets.CHAINLOOP_TOKEN }} --control-plane "api.cp.chainloop.dev:443"
           echo "Chainloop auth completed successfully"
-        env:
-          CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
+        # env:
+        #   CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
      
       - name: Chainloop Workflow
         run: |
