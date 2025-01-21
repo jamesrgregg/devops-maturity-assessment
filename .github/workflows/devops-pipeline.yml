@@ -72,7 +72,7 @@ jobs:
 
       - name: Authenticate with Chainloop - API Token
         run: |
-          chainloop organization api-token create --org arena-si-devops --name arena-si-devops-dma-$((RANDOM % 90000 + 10000)) --description arena-si-devops-api-token --control-plane  "api.cp.chainloop.dev:443" -- token ${{ secrets.CHAINLOOP_API_TOKEN }}
+          chainloop organization api-token create --org arena-si-devops --name arena-si-devops-dma-$((RANDOM % 90000 + 10000)) --description arena-si-devops-api-token --control-plane  "api.cp.chainloop.dev:443" -- token ${{ secrets.CHAINLOOP_TOKEN }}
           # chainloop organization create --name arena-si-devops-dma-$((RANDOM % 90000 + 10000))
           echo "Chainloop auth completed successfully"
         env:
