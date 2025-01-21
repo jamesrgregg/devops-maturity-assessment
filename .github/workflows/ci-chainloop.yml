@@ -1,0 +1,108 @@
+name: Chainloop Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  
+
+jobs:
+  chainloop:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: write
+    
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build DMA
+        run: npm run build
+
+      - name: Test DMA
+        run: npm test
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v2.5.0
+          
+      - name: Install Chainloop CLI
+        run: |
+          echo "Installing  Chainloop CLI ... "
+          curl -sfL https://docs.chainloop.dev/install.sh | bash -s -- --force-verification
+          export PATH=$PATH:$HOME/.chainloop/bin
+          chainloop version
+          echo "Chainloop CLI installed successfully"
+
+      - name: Authenticate with Chainloop - API Token
+        run: |
+          chainloop auth login --skip-browser -t ${{ secrets.CHAINLOOP_TOKEN }} --control-plane "api.cp.chainloop.dev:443" --debug
+          chainloop organization list
+          chainloop organization api-token list
+     
+    #   - name: Chainloop Workflow
+    #     run: |
+    #       echo "Chainloop set up workflow..."
+    #       chainloop att init --workflow arenasidevopswf --project devops-maturity-assessment --token ${{ secrets.CHAINLOOP_TOKEN }}
+    #       chainloop wf ls    
+    #     env:
+    #       CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }} 
+          
+      - name: Push Artifacts
+        run: echo "Pushing artifacts..." # Placeholder for artifact push command
+
+      - name: Package Application
+        run: echo "Packaging application..." # Placeholder for containerization command
+
+      - name: Get Release SHA
+        run: |
+          echo ${{ github.sha }} > Release.txt
+          ls -al
+          mkdir release
+          echo "test" > sbom.json
+          echo "test" > Release.txt	
+          mv Release.txt release/
+          mv sbom.json release/
+
+      - name: Create Release Tag
+        id: create_tag
+        run: |
+          # shellcheck disable=SC2086 
+          echo "Creating double quoted tag to avoid shellcheck issues..."
+          export tag_name="v1.0.${{ github.run_number }}" 
+          echo "tag_name=$tag_name" >> "$GITHUB_ENV"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Create Release and Push    
+        run: |
+          # shellcheck disable=SC2086
+          git tag "$tag_name" 
+          git push origin "$tag_name" 
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch Tags
+        run: |
+          git fetch --tags
+
+      - name: Generate Changelog
+        run: echo "# Release-${{ env.tag_name }}" > release/CHANGELOG.txt  
+
+      - name: Create GitHub Release
+        run: | 
+          gh release create "${{ env.tag_name }}" release/Release.txt release/sbom.json --title "${{ env.tag_name }}" --notes-file release/CHANGELOG.txt 
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
