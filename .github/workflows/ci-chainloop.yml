@@ -56,24 +56,27 @@ jobs:
           echo "Chainloop set up workflow..."
           chainloop config view 
           
-      - name: Push Artifacts
-        run: | 
-          echo "Pushing artifacts..."
-          chainloop attestation status --full
-          chainloop attestation push --artifact release/Release.txt --artifact release/sbom.json --token ${{ secrets.CHAINLOOP_TOKEN }}
+     
 
-      - name: Package Application
-        run: echo "Packaging application..." # Placeholder for containerization command
+    #   - name: Package Application
+    #     run: echo "Packaging application..." # Placeholder for containerization command
 
-      - name: Get Release SHA
+      - name: Create Release and Get SHA
         run: |
           echo ${{ github.sha }} > Release.txt
           ls -al
           mkdir release
           echo "test sbom" > sbom.json
-          echo "test release" > Release.txt	
           mv Release.txt release/
           mv sbom.json release/
+      
+      - name: Push Artifacts
+        run: |
+          echo "Pushing artifacts..."
+          chainloop attestation status --full
+          chainloop attestation push --artifact release/Release.txt --artifact release/sbom.json --token ${{ secrets.CHAINLOOP_TOKEN }}
+        env: 
+          CHAINLOOP_TOKEN: ${{ secrets.CHAINLOOP_TOKEN }}
 
       - name: Create Release Tag
         id: create_tag
