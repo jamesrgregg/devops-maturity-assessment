@@ -48,9 +48,7 @@ jobs:
 
       - name: Authenticate with Chainloop - API Token
         run: |
-          export CHAINLOOP_TOKEN=${{ secrets.CHAINLOOP_API_TOKEN }}
-          read -r -d '' CHAINLOOP_TOKEN
-          echo "$CHAINLOOP_TOKEN" | chainloop auth login --skip-browser --control-plane "api.cp.chainloop.dev:443" --debug
+          chainloop auth login --api-token ${{ secrets.CHAINLOOP_API_TOKEN }}
         #   chainloop organization list
         #   chainloop organization api-token list
         # env:
