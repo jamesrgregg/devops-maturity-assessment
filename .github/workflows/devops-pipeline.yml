@@ -75,14 +75,16 @@ jobs:
           chainloop organization api-token create --org arena-si-devops --name arena-si-devops-dma-$((RANDOM % 90000 + 10000)) --description arena-si-devops-api-token --control-plane  "api.cp.chainloop.dev:443"
           # chainloop organization create --name arena-si-devops-dma-$((RANDOM % 90000 + 10000))
           echo "Chainloop auth completed successfully"
-        # env:
-        #   CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
+        env:
+          CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }}
      
       - name: Chainloop Workflow
         run: |
           echo "Chainloop set up workflow..."
           chainloop att init --workflow arenasidevopswf --project devops-maturity-assessment
-          chainloop wf ls     
+          chainloop wf ls    
+        env:
+          CHAINLOOP_API_TOKEN: ${{ secrets.CHAINLOOP_API_TOKEN }} 
           
       - name: Push Artifacts
         run: echo "Pushing artifacts..." # Placeholder for artifact push command
