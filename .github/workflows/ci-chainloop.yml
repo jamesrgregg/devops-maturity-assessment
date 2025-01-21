@@ -74,7 +74,9 @@ jobs:
         run: |
           echo "Pushing artifacts..."
           chainloop attestation status --full
-          chainloop attestation push --artifact release/Release.txt --artifact release/sbom.json --token ${{ secrets.CHAINLOOP_TOKEN }}
+          chainloop att add --value release/Release.txt --token ${{ secrets.CHAINLOOP_TOKEN }}
+          chainloop att add --value release/sbom.json --token ${{ secrets.CHAINLOOP_TOKEN }}
+          chainloop attestation push --token ${{ secrets.CHAINLOOP_TOKEN }}
         env: 
           CHAINLOOP_TOKEN: ${{ secrets.CHAINLOOP_TOKEN }}
 
