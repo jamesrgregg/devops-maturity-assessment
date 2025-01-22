@@ -36,4 +36,4 @@ jobs:
           VALIDATE_PYTHON_ISORT: false
           VALIDATE_YAML: false
           VALIDATE_YAML_PRETTIER: false
-          VALIDATE_JSCPD: false
+          VALIDATE_JSCPD: true
