@@ -132,7 +132,4 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Notify Job Step Summary
-        run: echo "### Job Step Summary :rocket:" >> $GITHUB_STEP_SUMMARY
-
 
