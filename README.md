@@ -6,7 +6,12 @@
 
 DevOps Maturity Assessment offers the means to gather information about the current state of capabilities, methodologies and practices.
 
-It offers the means to identify areas of improvement.
+It offers the means to identify areas of improvement in the following areas:
+
+- Deployment Frequency
+- Lead Time for Changes
+- Time to Restore Service
+- Change Failure Rate
 
 It should outline the steps required to achieve desired state towards DevOps maturity assessment goals.
 
